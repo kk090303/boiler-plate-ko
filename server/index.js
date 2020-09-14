@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 4000
+
 const bodyParser = require('body-parser'); //바디 파서를 가져옴
 const cookieParser = require('cookie-parser');
 
@@ -8,7 +8,6 @@ const config = require('./config/key'); //key.js 파일에서 mongoURI를 가져오기 위
 
 const { auth } = require('./middleware/auth');
 const { User } = require("./models/User"); //이전에 만들어놓은 유저 모델을 가져옴
-
 
 
 //application/x-www-form-urIendoded 형태의 데이터를 분석해서 가져올 수 있게 해줌
@@ -26,6 +25,10 @@ mongoose.connect(config.mongoURI, {
 
 
 app.get('/', (req, res) => res.send('Hello World!~~ '))
+
+app.get('/api/hello',(req,res)=>{
+	res.send("안녕하세요")
+})
 
 
 //회원가입을 위한 라우트
@@ -73,8 +76,6 @@ User.findOne({ email: req.body.email }, (err, user) => {
   })
 })
 
-
-
 //auth 라우터
 app.get('/api/users/auth',auth,(req,res) =>{
 	//여기까지 미들웨어를 통과해 왔다는 얘기는 Authentication 이 True 라는 말.
@@ -90,6 +91,7 @@ app.get('/api/users/auth',auth,(req,res) =>{
 	})
 })
 
+//로그아웃 라우터
 app.get('/api/users/logout',auth,(req,res)=>{
 User.findOneAndUpdate({_id:req.user._id},
 {token:""},(err,user) => {
@@ -101,5 +103,5 @@ User.findOneAndUpdate({_id:req.user._id},
 })
 
 
-
+const port = 4000
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
