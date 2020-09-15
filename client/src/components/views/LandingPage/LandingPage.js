@@ -9,8 +9,11 @@ function LandingPage() {
 		.then(response =>console.log(response.data)) //서버에서 돌아온 response를 log로 띄우겠다.
 	},[])
     return (
-    <div>
-	LandingPage
+    <div style={{
+            display: 'flex', justifyContent: 'center', alignItems: 'center'
+            , width: '100%', height: '100vh'
+        }}>
+            <h2>Start Page</h2>
 	</div>
     )
 }
