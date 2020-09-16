@@ -37,13 +37,12 @@ app.post('/api/users/register',(req,res)=> {
 	
 	const user = new User(req.body)
 
-	user.save((err,userInfo)=>{
-	if(err) return res.json({success: false, err})
-	})//정보들이 user모델에 저장이 됌(mongodb 함수)
-	return res.status(200).json({
-		seccess:true
-	})
-
+	user.save((err, userInfo) => {
+    if (err) return res.json({ success: false, err })
+    return res.status(200).json({
+      success: true
+    })
+  })
 })
 
 //로그인을 위한 라우트
@@ -76,19 +75,21 @@ User.findOne({ email: req.body.email }, (err, user) => {
   })
 })
 
-//auth 라우터
-app.get('/api/users/auth',auth,(req,res) =>{
-	//여기까지 미들웨어를 통과해 왔다는 얘기는 Authentication 이 True 라는 말.
-	res.status(200).json({
-		_id : req.user._id,
-		//role = 0 : 일반유저 , role !=0 : 관리자
-		isAdmin: req.user.role === 0 ? false : true,
-		email: requ.user.email,
-		name : req.user.name,
-		lastname:req.user.lastname,
-		role: req.user.role,
-		image:req.user.image
-	})
+
+// role 1 어드민    role 2 특정 부서 어드민 
+// role 0 -> 일반유저   role 0이 아니면  관리자 
+app.get('/api/users/auth', auth, (req, res) => {
+  //여기 까지 미들웨어를 통과해 왔다는 얘기는  Authentication 이 True 라는 말.
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image
+  })
 })
 
 //로그아웃 라우터

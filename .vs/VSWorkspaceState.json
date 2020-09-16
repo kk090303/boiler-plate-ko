@@ -6,10 +6,11 @@
     "\\client\\src\\components",
     "\\client\\src\\components\\views",
     "\\client\\src\\components\\views\\LandingPage",
-    "\\client\\src\\components\\views\\LoginPage",
-    "\\client\\src\\components\\views\\NavBar",
-    "\\client\\src\\components\\views\\Registerpage"
+    "\\client\\src\\_reducers",
+    "\\server\\config",
+    "\\server\\middleware",
+    "\\server\\models"
   ],
-  "SelectedNode": "\\client\\src\\components\\views\\Registerpage\\RegisterPage.js",
+  "SelectedNode": "\\client\\src\\_actions\\user_action.js",
   "PreviewInSolutionExplorer": false
 }
